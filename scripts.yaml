@@ -1,0 +1,15 @@
+'1586275381842':
+  alias: system_cleanup
+  sequence:
+  - data: {}
+    entity_id: input_boolean.system_ready
+    service: input_boolean.turn_on
+  - data: {}
+    entity_id: input_boolean.allow_automation_execution
+    service: input_boolean.turn_on
+'1586275428240':
+  alias: customstartup
+  sequence:
+  - data: {}
+    entity_id: input_boolean.allow_automation_execution
+    service: input_boolean.turn_off
