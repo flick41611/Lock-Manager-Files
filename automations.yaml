@@ -1,61 +1,21 @@
-- id: '1585457462984'
-  alias: Notify when front door unlocked
-  description: ''
-  trigger:
-  - device_id: 100b1bb5cb91402999395b49b339ebb4
-    domain: lock
-    entity_id: lock.schlage_allegion_be469_touchscreen_deadbolt_locked
-    platform: device
-    type: unlocked
-  condition: []
-  action:
-  - data:
-      message: Your Front Door has been unlocked.
-      title: ALERT!
-    service: notify.mobile_app_gm1915
-- id: '1585581307233'
-  alias: New Automation
-  description: ''
-  trigger:
-  - event: enter
-    platform: geo_location
-    source: 192.168.1.122
-    zone: zone.home
-  condition: []
-  action:
-  - data:
-      message: test
-      title: test title
-    service: notify.mobile_app_gm1915
 #LOCK PROJECT AUTOMATIONS
-- id: '1586205294586'
-  alias: homeassistant start-up
-  description: ''
+- alias: homeassistant start-up
+  initial_state: true
   trigger:
-  - event: start
     platform: homeassistant
-  condition: []
+    event: start
   action:
-  - data: {}
-    entity_id: script.1586275428240
-    service: script.turn_on
+    - service: script.turn_on
+      entity_id: script.customstartup
+- alias: Zwave_loaded_Start_System
   initial_state: true
-- id: '1586205426187'
-  alias: Zwave_loaded_Start_System
-  description: ''
   trigger:
-  - event_data: {}
-    event_type: zwave.network_ready
-    platform: event
-  - event_data: {}
-    event_type: zwave.network_complete
-    platform: event
-  - event_data: {}
-    event_type: zwave.network_complete_some_dead
-    platform: event
-  condition: []
+    - platform: event
+      event_type: zwave.network_ready
+    - platform: event
+      event_type: zwave.network_complete
+    - platform: event
+      event_type: zwave.network_complete_some_dead
   action:
-  - data: {}
-    entity_id: script.1586275381842
-    service: script.turn_on
-  initial_state: true
+    - service: script.turn_on
+      entity_id: script.system_cleanup
